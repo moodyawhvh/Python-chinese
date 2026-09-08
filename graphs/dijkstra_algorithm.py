@@ -1,18 +1,18 @@
-# Title: Dijkstra's Algorithm for finding single source shortest path from scratch
-# Author: Shubham Malik
-# References: https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm
+# 标题:Dijkstra 算法——从零实现单源最短路径
+# 作者:Shubham Malik
+# 参考资料:https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm
 
 import math
 import sys
 
-# For storing the vertex set to retrieve node with the lowest distance
+# 用于存储顶点集合,以便取出距离最小的节点
 
 
 class PriorityQueue:
-    # Based on Min Heap
+    # 基于最小堆
     def __init__(self):
         """
-        Priority queue class constructor method.
+        优先队列类的构造方法。
 
         Examples:
         >>> priority_queue_test = PriorityQueue()
@@ -25,11 +25,11 @@ class PriorityQueue:
         """
         self.cur_size = 0
         self.array = []
-        self.pos = {}  # To store the pos of node in array
+        self.pos = {}  # 存储节点在数组中的位置
 
     def is_empty(self):
         """
-        Conditional boolean method to determine if the priority queue is empty or not.
+        条件判断方法,用于确定优先队列是否为空。
 
         Examples:
         >>> priority_queue_test = PriorityQueue()
@@ -43,7 +43,7 @@ class PriorityQueue:
 
     def min_heapify(self, idx):
         """
-        Sorts the queue array so that the minimum element is root.
+        对队列数组执行堆化排序,使最小元素位于根节点。
 
         Examples:
         >>> priority_queue_test = PriorityQueue()
@@ -86,7 +86,7 @@ class PriorityQueue:
 
     def insert(self, tup):
         """
-        Inserts a node into the Priority Queue.
+        将一个节点插入优先队列。
 
         Examples:
         >>> priority_queue_test = PriorityQueue()
@@ -107,7 +107,7 @@ class PriorityQueue:
 
     def extract_min(self):
         """
-        Removes and returns the min element at top of priority queue.
+        移除并返回优先队列顶部的最小元素。
 
         Examples:
         >>> priority_queue_test = PriorityQueue()
@@ -129,7 +129,7 @@ class PriorityQueue:
 
     def left(self, i):
         """
-        Returns the index of left child
+        返回左孩子的索引
 
         Examples:
         >>> priority_queue_test = PriorityQueue()
@@ -142,7 +142,7 @@ class PriorityQueue:
 
     def right(self, i):
         """
-        Returns the index of right child
+        返回右孩子的索引
 
         Examples:
         >>> priority_queue_test = PriorityQueue()
@@ -155,7 +155,7 @@ class PriorityQueue:
 
     def par(self, i):
         """
-        Returns the index of parent
+        返回父节点的索引
 
         Examples:
         >>> priority_queue_test = PriorityQueue()
@@ -170,7 +170,7 @@ class PriorityQueue:
 
     def swap(self, i, j):
         """
-        Swaps array elements at indices i and j, update the pos{}
+        交换数组中索引 i 和 j 处的元素,并同步更新 pos{}
 
         Examples:
         >>> priority_queue_test = PriorityQueue()
@@ -191,7 +191,7 @@ class PriorityQueue:
 
     def decrease_key(self, tup, new_d):
         """
-        Decrease the key value for a given tuple, assuming the new_d is at most old_d.
+        减小给定元组的键值,前提是 new_d 不大于旧值。
 
         Examples:
         >>> priority_queue_test = PriorityQueue()
@@ -203,7 +203,7 @@ class PriorityQueue:
         [(5, 'A'), (15, 'B')]
         """
         idx = self.pos[tup[1]]
-        # assuming the new_d is at most old_d
+        # 假设 new_d 不大于旧值
         self.array[idx] = (new_d, tup[1])
         while idx > 0 and self.array[self.par(idx)][0] > self.array[idx][0]:
             self.swap(idx, self.par(idx))
@@ -213,7 +213,7 @@ class PriorityQueue:
 class Graph:
     def __init__(self, num):
         """
-        Graph class constructor
+        Graph 类的构造方法
 
         Examples:
         >>> graph_test = Graph(1)
@@ -226,15 +226,15 @@ class Graph:
         >>> graph_test.adjList
         {}
         """
-        self.adjList = {}  # To store graph: u -> (v,w)
-        self.num_nodes = num  # Number of nodes in graph
-        # To store the distance from source vertex
+        self.adjList = {}  # 存储图:u -> (v,w)
+        self.num_nodes = num  # 图中节点的数量
+        # 存储与源点 vertices 的距离
         self.dist = [0] * self.num_nodes
-        self.par = [-1] * self.num_nodes  # To store the path
+        self.par = [-1] * self.num_nodes  # 存储路径
 
     def add_edge(self, u, v, w):
         """
-        Add edge going from node u to v and v to u with weight w: u (w)-> v, v (w) -> u
+        添加一条权重为 w 的边,从节点 u 指向 v、再从 v 指向 u:u (w)-> v、v (w) -> u
 
         Examples:
         >>> graph_test = Graph(1)
@@ -243,13 +243,13 @@ class Graph:
         >>> graph_test.adjList
         {1: [(2, 1)], 2: [(1, 1), (3, 2)], 3: [(2, 2)]}
         """
-        # Check if u already in graph
+        # 检查 u 是否已在图中
         if u in self.adjList:
             self.adjList[u].append((v, w))
         else:
             self.adjList[u] = [(v, w)]
 
-        # Assuming undirected graph
+        # 假定为无向图
         if v in self.adjList:
             self.adjList[v].append((u, w))
         else:
@@ -257,7 +257,7 @@ class Graph:
 
     def show_graph(self):
         """
-        Show the graph: u -> v(w)
+        展示图:u -> v(w)
 
         Examples:
         >>> graph_test = Graph(1)
@@ -276,7 +276,7 @@ class Graph:
 
     def dijkstra(self, src):
         """
-        Dijkstra algorithm
+        Dijkstra 算法
 
         Examples:
         >>> graph_test = Graph(3)
@@ -349,21 +349,21 @@ class Graph:
         >>> graph_test.dist
         [0, 4, 6, 7]
         """
-        # Flush old junk values in par[]
+        # 清空 par[] 中的旧值
         self.par = [-1] * self.num_nodes
-        # src is the source node
+        # src 是源节点
         self.dist[src] = 0
         q = PriorityQueue()
-        q.insert((0, src))  # (dist from src, node)
+        q.insert((0, src))  # (与源点的距离, 节点)
         for u in self.adjList:
             if u != src:
-                self.dist[u] = sys.maxsize  # Infinity
+                self.dist[u] = sys.maxsize  # 无穷大
                 self.par[u] = -1
 
         while not q.is_empty():
-            u = q.extract_min()  # Returns node with the min dist from source
-            # Update the distance of all the neighbours of u and
-            # if their prev dist was INFINITY then push them in Q
+            u = q.extract_min()  # 返回距源点距离最小的节点
+            # 更新 u 的所有邻居的距离,
+            # 若邻居原来的距离为 INFINITY,则将其压入队列 Q
             for v, w in self.adjList[u]:
                 new_dist = self.dist[u] + w
                 if self.dist[v] > new_dist:
@@ -374,12 +374,12 @@ class Graph:
                     self.dist[v] = new_dist
                     self.par[v] = u
 
-        # Show the shortest distances from src
+        # 展示从 src 出发的最短距离
         self.show_distances(src)
 
     def show_distances(self, src):
         """
-        Show the distances from src to all other nodes in a graph
+        展示从 src 到图中其他所有节点的距离
 
         Examples:
         >>> graph_test = Graph(1)
@@ -393,8 +393,8 @@ class Graph:
 
     def show_path(self, src, dest):
         """
-        Shows the shortest path from src to dest.
-        WARNING: Use it *after* calling dijkstra.
+        展示从 src 到 dest 的最短路径。
+        警告:请在调用 dijkstra *之后*使用本方法。
 
         Examples:
         >>> graph_test = Graph(4)
@@ -415,7 +415,7 @@ class Graph:
         path = []
         cost = 0
         temp = dest
-        # Backtracking from dest to src
+        # 从 dest 回溯到 src
         while self.par[temp] != -1:
             path.append(temp)
             if temp != src:
@@ -459,7 +459,7 @@ if __name__ == "__main__":
     graph.dijkstra(0)
     graph.show_path(0, 4)
 
-# OUTPUT
+# 输出
 # 0 -> 1(4) -> 7(8)
 # 1 -> 0(4) -> 2(8) -> 7(11)
 # 7 -> 0(8) -> 1(11) -> 6(1) -> 8(7)

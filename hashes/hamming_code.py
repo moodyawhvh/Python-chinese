@@ -1,54 +1,46 @@
-# Author: João Gustavo A. Amorim & Gabriel Kunz
-# Author email: joaogustavoamorim@gmail.com and gabriel-kunz@uergs.edu.br
-# Coding date:  apr 2019
+# 作者:João Gustavo A. Amorim & Gabriel Kunz
+# 作者邮箱:joaogustavoamorim@gmail.com 和 gabriel-kunz@uergs.edu.br
+# 编写时间:2019 年 4 月
 # Black: True
 
 """
-* This code implement the Hamming code:
-    https://en.wikipedia.org/wiki/Hamming_code - In telecommunication,
-Hamming codes are a family of linear error-correcting codes. Hamming
-codes can detect up to two-bit errors or correct one-bit errors
-without detection of uncorrected errors. By contrast, the simple
-parity code cannot correct errors, and can detect only an odd number
-of bits in error. Hamming codes are perfect codes, that is, they
-achieve the highest possible rate for codes with their block length
-and minimum distance of three.
+* 本代码实现了汉明码(Hamming code):
+    https://en.wikipedia.org/wiki/Hamming_code —— 在通信领域中,
+汉明码是一族线性纠错码。汉明码可以检测两位以内的错误,或在不检测
+未纠正错误的情况下纠正一位错误。相比之下,简单奇偶校验码无法纠错,
+也只能检测出奇数个比特错误。汉明码是完备码,也就是说,在相同码块
+长度与最小距离为 3 的条件下,它们达到了尽可能高的码率。
 
-* the implemented code consists of:
-    * a function responsible for encoding the message (emitterConverter)
-        * return the encoded message
-    * a function responsible for decoding the message (receptorConverter)
-        * return the decoded message and a ack of data integrity
+* 本实现包括:
+    * 负责对消息进行编码的函数(emitterConverter)
+        * 返回编码后的消息
+    * 负责对消息进行解码的函数(receptorConverter)
+        * 返回解码后的消息和数据完整性确认(ack)
 
-* how to use:
-        to be used you must declare how many parity bits (sizePari)
-    you want to include in the message.
-        it is desired (for test purposes) to select a bit to be set
-    as an error. This serves to check whether the code is working correctly.
-        Lastly, the variable of the message/word that must be desired to be
-    encoded (text).
+* 使用方法:
+        使用时必须声明希望在消息中包含多少个校验位(sizePari)。
+        (出于测试目的)还需要选择一个将被强制置错的比特位。
+    这用于检查汉明码是否工作正常。
+        最后,给出需要编码的消息/单词变量(text)。
 
-* how this work:
-        declaration of variables (sizePari, be, text)
+* 工作流程:
+        声明变量(sizePari、be、text)
 
-        converts the message/word (text) to binary using the
-    text_to_bits function
-        encodes the message using the rules of hamming encoding
-        decodes the message using the rules of hamming encoding
-        print the original message, the encoded message and the
-    decoded message
+        使用 text_to_bits 函数把消息/单词(text)转换为二进制
+        按照汉明编码规则对消息进行编码
+        按照汉明编码规则对消息进行解码
+        打印原始消息、编码后的消息和解码后的消息
 
-        forces an error in the coded text variable
-        decodes the message that was forced the error
-        print the original message, the encoded message, the bit changed
-    message and the decoded message
+        在编码后的文本变量中强制制造一个错误
+        对被强制置错的消息进行解码
+        打印原始消息、编码后的消息、被篡改后的消息和解码后的消息
 """
 
-# Imports
+# 导入
 import numpy as np
 
 
-# Functions of binary conversion--------------------------------------
+# 二进制转换函数--------------------------------------
 def text_to_bits(text, encoding="utf-8", errors="surrogatepass"):
     """
     >>> text_to_bits("msg")
@@ -67,13 +59,13 @@ def text_from_bits(bits, encoding="utf-8", errors="surrogatepass"):
     return n.to_bytes((n.bit_length() + 7) // 8, "big").decode(encoding, errors) or "\0"
 
 
-# Functions of hamming code-------------------------------------------
+# 汉明码相关函数-------------------------------------------
 def emitter_converter(size_par, data):
     """
-    :param size_par: how many parity bits the message must have
-    :param data:  information bits
-    :return: message to be transmitted by unreliable medium
-            - bits of information merged with parity bits
+    :param size_par: 消息必须包含的校验位个数
+    :param data: 信息位
+    :return: 将通过不可靠信道传输的消息
+            ——信息位与校验位合并后的序列
 
     >>> emitter_converter(4, "101010111111")
     ['1', '1', '1', '1', '0', '1', '0', '0', '1', '0', '1', '1', '1', '1', '1', '1']
@@ -89,18 +81,18 @@ def emitter_converter(size_par, data):
     parity = []
     bin_pos = [bin(x)[2:] for x in range(1, size_par + len(data) + 1)]
 
-    # sorted information data for the size of the output data
+    # 按输出数据的规模整理后的信息数据
     data_ord = []
-    # data position template + parity
+    # 数据位置模板 + 校验位
     data_out_gab = []
-    # parity bit counter
+    # 校验位计数器
     qtd_bp = 0
-    # counter position of data bits
+    # 数据位的位置计数器
     cont_data = 0
 
     for x in range(1, size_par + len(data) + 1):
-        # Performs a template of bit positions - who should be given,
-        # and who should be parity
+        # 生成比特位置模板——哪些位置放数据位,
+        # 哪些位置放校验位
         if qtd_bp < size_par:
             if (np.log(x) / np.log(2)).is_integer():
                 data_out_gab.append("P")
@@ -110,18 +102,18 @@ def emitter_converter(size_par, data):
         else:
             data_out_gab.append("D")
 
-        # Sorts the data to the new output size
+        # 把数据重新排布到新的输出规模中
         if data_out_gab[-1] == "D":
             data_ord.append(data[cont_data])
             cont_data += 1
         else:
             data_ord.append(None)
 
-    # Calculates parity
+    # 计算校验位
     for bp in range(1, size_par + 1):
-        # Bit counter one for a given parity
+        # 给定校验位对应的 1 比特计数器
         cont_bo = 0
-        # counter to control the loop reading
+        # 控制循环读取的计数器
         for cont_loop, x in enumerate(data_ord):
             if x is not None:
                 try:
@@ -132,8 +124,8 @@ def emitter_converter(size_par, data):
                     cont_bo += 1
         parity.append(cont_bo % 2)
 
-    # Mount the message
-    cont_bp = 0  # parity bit counter
+    # 组装消息
+    cont_bp = 0  # 校验位计数器
     for x in range(size_par + len(data)):
         if data_ord[x] is None:
             data_out.append(str(parity[cont_bp]))
@@ -149,64 +141,64 @@ def receptor_converter(size_par, data):
     >>> receptor_converter(4, "1111010010111111")
     (['1', '0', '1', '0', '1', '0', '1', '1', '1', '1', '1', '1'], True)
     """
-    # data position template + parity
+    # 数据位置模板 + 校验位
     data_out_gab = []
-    # Parity bit counter
+    # 校验位计数器
     qtd_bp = 0
-    # Counter p data bit reading
+    # 数据位读取计数器
     cont_data = 0
-    # list of parity received
+    # 收到的校验位列表
     parity_received = []
     data_output = []
 
     for i, item in enumerate(data, 1):
-        # Performs a template of bit positions - who should be given,
-        #  and who should be parity
+        # 生成比特位置模板——哪些位置放数据位,
+        #  哪些位置放校验位
         if qtd_bp < size_par and (np.log(i) / np.log(2)).is_integer():
             data_out_gab.append("P")
             qtd_bp = qtd_bp + 1
         else:
             data_out_gab.append("D")
 
-        # Sorts the data to the new output size
+        # 把数据重新排布到新的输出规模中
         if data_out_gab[-1] == "D":
             data_output.append(item)
         else:
             parity_received.append(item)
 
-    # -----------calculates the parity with the data
+    # -----------用数据计算校验位
     data_out = []
     parity = []
     bin_pos = [bin(x)[2:] for x in range(1, size_par + len(data_output) + 1)]
 
-    #  sorted information data for the size of the output data
+    #  按输出数据的规模整理后的信息数据
     data_ord = []
-    # Data position feedback + parity
+    # 数据位置反馈 + 校验位
     data_out_gab = []
-    # Parity bit counter
+    # 校验位计数器
     qtd_bp = 0
-    # Counter p data bit reading
+    # 数据位读取计数器
     cont_data = 0
 
     for x in range(1, size_par + len(data_output) + 1):
-        # Performs a template position of bits - who should be given,
-        # and who should be parity
+        # 生成比特位置模板——哪些位置放数据位,
+        # 哪些位置放校验位
         if qtd_bp < size_par and (np.log(x) / np.log(2)).is_integer():
             data_out_gab.append("P")
             qtd_bp = qtd_bp + 1
         else:
             data_out_gab.append("D")
 
-        # Sorts the data to the new output size
+        # 把数据重新排布到新的输出规模中
         if data_out_gab[-1] == "D":
             data_ord.append(data_output[cont_data])
             cont_data += 1
         else:
             data_ord.append(None)
 
-    # Calculates parity
+    # 计算校验位
     for bp in range(1, size_par + 1):
-        # Bit counter one for a certain parity
+        # 给定校验位对应的 1 比特计数器
         cont_bo = 0
         for cont_loop, x in enumerate(data_ord):
             if x is not None:
@@ -218,8 +210,8 @@ def receptor_converter(size_par, data):
                     cont_bo += 1
         parity.append(str(cont_bo % 2))
 
-    # Mount the message
-    cont_bp = 0  # Parity bit counter
+    # 组装消息
+    cont_bp = 0  # 校验位计数器
     for x in range(size_par + len(data_output)):
         if data_ord[x] is None:
             data_out.append(str(parity[cont_bp]))
@@ -233,25 +225,25 @@ def receptor_converter(size_par, data):
 
 # ---------------------------------------------------------------------
 """
-# Example how to use
+# 使用示例
 
-# number of parity bits
+# 校验位个数
 sizePari = 4
 
-# location of the bit that will be forced an error
+# 将被强制置错的比特位置
 be = 2
 
-# Message/word to be encoded and decoded with hamming
+# 需要用汉明码编码和解码的消息/单词
 # text = input("Enter the word to be read: ")
 text = "Message01"
 
-# Convert the message to binary
+# 把消息转换为二进制
 binaryText = text_to_bits(text)
 
-# Prints the binary of the string
+# 打印字符串的二进制形式
 print("Text input in binary is '" + binaryText + "'")
 
-# total transmitted bits
+# 总传输比特数
 totalBits = len(binaryText) + sizePari
 print("Size of data is " + str(totalBits))
 
@@ -273,7 +265,7 @@ print("Data to send ------------> " + binaryText)
 dataOut = emitterConverter(sizePari, binaryText)
 print("Data converted ----------> " + "".join(dataOut))
 
-# forces error
+# 强制制造错误
 dataOut[-be] = "1" * (dataOut[-be] == "0") + "0" * (dataOut[-be] == "1")
 print("Data after transmission -> " + "".join(dataOut))
 dataReceiv, ack = receptorConverter(sizePari, dataOut)

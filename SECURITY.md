@@ -1,41 +1,43 @@
-# Security Policy
+> 🌐 本文档由 [TheAlgorithms/Python](https://github.com/TheAlgorithms/Python) 翻译,英文原版见原项目。
 
-## Supported Versions
+# 安全策略
 
-| Version | Supported          |
+## 支持的版本
+
+| 版本 | 是否支持 |
 | ------- | ------------------ |
-| latest  | :white_check_mark: |
+| latest(最新版) | :white_check_mark: |
 
-## Reporting a Vulnerability
+## 报告漏洞
 
-If you discover a security vulnerability in this project, please report it responsibly.
+如果你在本项目中发现安全漏洞,请负责任地进行报告。
 
-**Please do NOT open a public issue for security vulnerabilities.**
+**请不要为安全漏洞公开创建 issue。**
 
-Instead, please send an email to the project maintainers or use GitHub's private vulnerability reporting feature.
+请改为发送邮件联系项目维护者,或使用 GitHub 的私有漏洞报告功能。
 
-### What to include
+### 报告内容应包括
 
-- A description of the vulnerability
-- Steps to reproduce the issue
-- Possible impact of the vulnerability
-- Any suggested fixes (if applicable)
+- 漏洞描述
+- 复现步骤
+- 漏洞可能造成的影响
+- 建议的修复方案(如有)
 
-### Response Timeline
+### 响应时间
 
-- **Acknowledgment**: Within 48 hours
-- **Initial assessment**: Within 1 week
-- **Fix or mitigation**: Depends on severity, typically within 2-4 weeks
+- **确认收到**:48 小时内
+- **初步评估**:1 周内
+- **修复或缓解**:取决于严重程度,通常 2-4 周内
 
-### After Reporting
+### 报告之后
 
-- The security team will validate the vulnerability
-- We will work on a fix and coordinate disclosure
-- Credit will be given to the reporter (unless anonymity is requested)
+- 安全团队将对漏洞进行验证
+- 我们将着手修复并协调披露事宜
+- 会向报告者致谢(除非要求匿名)
 
-## Security Best Practices for Contributors
+## 贡献者的安全最佳实践
 
-- Keep dependencies up to date
-- Avoid committing sensitive information (API keys, passwords, tokens)
-- Follow secure coding practices
-- Review code changes for potential security implications
+- 保持依赖项为最新版本
+- 避免提交敏感信息(API 密钥、密码、令牌)
+- 遵循安全编码规范
+- 审查代码变更时关注潜在的安全影响

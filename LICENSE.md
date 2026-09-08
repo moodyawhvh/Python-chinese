@@ -1,21 +1,13 @@
-## MIT License
+> 🌐 本文档由 [TheAlgorithms/Python](https://github.com/TheAlgorithms/Python) 翻译,英文原版见原项目。
 
-Copyright (c) 2016-2022 TheAlgorithms and contributors
+## MIT 许可证(MIT License)
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+版权所有 (c) 2016-2022 TheAlgorithms 及贡献者
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+特此免费向任何获得本软件及相关文档文件(下称"软件")副本之人授予无限制处置该软件的权利,包括但不限于使用、复制、修改、合并、出版、发行、再许可和/或销售软件副本的权利,并允许获得软件之人如此行事,但须满足以下条件:
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+上述版权声明及本许可声明应包含在软件的所有副本或其主要部分中。
+
+本软件按"原样"提供,不附带任何形式的明示或默示担保,包括但不限于对适销性、特定用途适用性及不侵权的担保。无论是因本软件、本软件的使用或其他方式引起的任何索赔、损害或其他责任,作者或版权持有人均不承担任何责任,无论是在合同诉讼、侵权诉讼还是其他诉讼中。
+
+> 注:本文为中文参考译文;如与英文原版存在歧义,以英文原版许可文本为准。

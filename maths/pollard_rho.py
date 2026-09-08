@@ -10,11 +10,10 @@ def pollard_rho(
     attempts: int = 3,
 ) -> int | None:
     """
-    Use Pollard's Rho algorithm to return a nontrivial factor of ``num``.
-    The returned factor may be composite and require further factorization.
-    If the algorithm will return None if it fails to find a factor within
-    the specified number of attempts or within the specified number of steps.
-    If ``num`` is prime, this algorithm is guaranteed to return None.
+    使用 Pollard's Rho 算法返回 ``num`` 的一个非平凡因子。
+    返回的因子可能是合数,仍需继续分解。
+    如果算法在指定的尝试次数或步数之内未能找到因子,则返回 None。
+    若 ``num`` 为素数,本算法保证返回 None。
     https://en.wikipedia.org/wiki/Pollard%27s_rho_algorithm
 
     >>> pollard_rho(18446744073709551617)
@@ -34,31 +33,27 @@ def pollard_rho(
         ...
     ValueError: The input value cannot be less than 2
     """
-    # A value less than 2 can cause an infinite loop in the algorithm.
+    # 小于 2 的值会让算法陷入死循环。
     if num < 2:
         raise ValueError("The input value cannot be less than 2")
 
-    # Because of the relationship between ``f(f(x))`` and ``f(x)``, this
-    # algorithm struggles to find factors that are divisible by two.
-    # As a workaround, we specifically check for two and even inputs.
-    #   See: https://math.stackexchange.com/a/2856214/165820
+    # 由于 ``f(f(x))`` 与 ``f(x)`` 之间的关系,本算法难以找到能被 2 整除的因子。
+    # 作为补救手段,我们专门检查 2 以及偶数输入。
+    #   参见:https://math.stackexchange.com/a/2856214/165820
     if num > 2 and num % 2 == 0:
         return 2
 
-    # Pollard's Rho algorithm requires a function that returns pseudorandom
-    # values between 0 <= X < ``num``.  It doesn't need to be random in the
-    # sense that the output value is cryptographically secure or difficult
-    # to calculate, it only needs to be random in the sense that all output
-    # values should be equally likely to appear.
-    # For this reason, Pollard suggested using ``f(x) = (x**2 - 1) % num``
-    # However, the success of Pollard's algorithm isn't guaranteed and is
-    # determined in part by the initial seed and the chosen random function.
-    # To make retries easier, we will instead use ``f(x) = (x**2 + C) % num``
-    # where ``C`` is a value that we can modify between each attempt.
+    # Pollard's Rho 算法需要一个能在 0 <= X < ``num`` 范围内产生伪随机值的函数。
+    # 它不需要达到密码学安全或难以计算的随机程度,
+    # 只需要所有输出值等概率出现即可。
+    # 出于这个原因,Pollard 建议使用 ``f(x) = (x**2 - 1) % num``。
+    # 然而,Pollard 算法并不保证成功,其成败部分取决于初始种子和所选的随机函数。
+    # 为了便于重试,我们改用 ``f(x) = (x**2 + C) % num``,
+    # 其中 ``C`` 是可以在每次尝试之间修改的值。
     def rand_fn(value: int, step: int, modulus: int) -> int:
         """
-        Returns a pseudorandom value modulo ``modulus`` based on the
-        input ``value`` and attempt-specific ``step`` size.
+        基于输入 ``value`` 和每次尝试特有的 ``step``,返回一个以 ``modulus``
+        为模的伪随机值。
 
         >>> rand_fn(0, 0, 0)
         Traceback (most recent call last):
@@ -74,52 +69,49 @@ def pollard_rho(
         return (pow(value, 2) + step) % modulus
 
     for _ in range(attempts):
-        # These track the position within the cycle detection logic.
+        # 这两个变量用于循环检测逻辑中的位置跟踪。
         tortoise = seed
         hare = seed
 
         while True:
-            # At each iteration, the tortoise moves one step and the hare moves two.
+            # 每次迭代,乌龟走一步,兔子走两步。
             tortoise = rand_fn(tortoise, step, num)
             hare = rand_fn(hare, step, num)
             hare = rand_fn(hare, step, num)
 
-            # At some point both the tortoise and the hare will enter a cycle whose
-            # length ``p`` is a divisor of ``num``.  Once in that cycle, at some point
-            # the tortoise and hare will end up on the same value modulo ``p``.
-            # We can detect when this happens because the position difference between
-            # the tortoise and the hare will share a common divisor with ``num``.
+            # 在某个时刻,乌龟和兔子都会进入一个长度 ``p`` 为 ``num`` 约数的环。
+            # 一旦进入该环,乌龟和兔子迟早会在模 ``p`` 意义下落到相同的值上。
+            # 我们之所以能检测到这一时刻,是因为乌龟与兔子之间的位置差
+            # 会与 ``num`` 拥有公因数。
             divisor = gcd(hare - tortoise, num)
 
             if divisor == 1:
-                # No common divisor yet, just keep searching.
+                # 还没有出现公因数,继续搜索。
                 continue
-            # We found a common divisor!
+            # 找到公因数了!
             elif divisor == num:
-                # Unfortunately, the divisor is ``num`` itself and is useless.
+                # 遗憾的是,该因数是 ``num`` 本身,毫无用处。
                 break
             else:
-                # The divisor is a nontrivial factor of ``num``!
+                # 该因数正是 ``num`` 的一个非平凡因子!
                 return divisor
 
-        # If we made it here, then this attempt failed.
-        # We need to pick a new starting seed for the tortoise and hare
-        # in addition to a new step value for the random function.
-        # To keep this example implementation deterministic, the
-        # new values will be generated based on currently available
-        # values instead of using something like ``random.randint``.
+        # 如果执行到这里,说明本次尝试失败。
+        # 我们需要为乌龟和兔子挑选新的起始种子,
+        # 同时为随机函数选定新的步长值。
+        # 为了让这个示例实现保持确定性,
+        # 新值将基于当前已有的值生成,而不是使用 ``random.randint`` 之类。
 
-        # We can use the hare's position as the new seed.
-        # This is actually what Richard Brent's the "optimized" variant does.
+        # 我们可以用兔子的位置作为新种子。
+        # 这实际上正是 Richard Brent 的"优化"变体所做的事。
         seed = hare
 
-        # The new step value for the random function can just be incremented.
-        # At first the results will be similar to what the old function would
-        # have produced, but the value will quickly diverge after a bit.
+        # 随机函数的新步长值直接递增即可。
+        # 一开始的结果与旧函数产生的结果相近,但很快就会发散。
         step += 1
 
-    # We haven't found a divisor within the requested number of attempts.
-    # We were unlucky or ``num`` itself is actually prime.
+    # 在要求的尝试次数内没有找到因数。
+    # 可能是我们运气不好,或者 ``num`` 本身其实就是素数。
     return None
 
 
@@ -130,13 +122,13 @@ if __name__ == "__main__":
     parser.add_argument(
         "num",
         type=int,
-        help="The value to find a divisor of",
+        help="要为其寻找因数的值",
     )
     parser.add_argument(
         "--attempts",
         type=int,
         default=3,
-        help="The number of attempts before giving up",
+        help="放弃前的尝试次数",
     )
     args = parser.parse_args()
 

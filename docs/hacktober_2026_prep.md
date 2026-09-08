@@ -1,14 +1,16 @@
-# Hacktoberfest 2026 preparation — open PR cleanup tracker
+> 🌐 本文档由 [TheAlgorithms/Python](https://github.com/TheAlgorithms/Python) 翻译,英文原版见原项目。
 
-This file tracks the cleanup of open pull requests ahead of [Hacktoberfest 2026](https://hacktoberfest.com) so the queue is ready for the October influx of contributions.
+# Hacktoberfest 2026 准备工作——open PR 清理追踪表
 
-Each of the `scripts/close_pull_requests_with_*.sh` jobs is run one at a time by a maintainer. After each run, the affected lines below are checked off (`[ ]` -> `[x]`), their labels replaced with "closed by <script name>", and the totals table at the bottom updated.
+本文件用于追踪 [Hacktoberfest 2026](https://hacktoberfest.com) 开始前 open pull request 的清理进度,确保 PR 队列在 10 月贡献潮到来之前准备就绪。
 
-Snapshot taken: **2026-09-02** -- **918** open pull requests.
+`scripts/close_pull_requests_with_*.sh` 中的每个任务由维护者逐一运行。每运行一次,就把下方受影响的条目勾选(`[ ]` -> `[x]`),把其标签替换为"closed by <脚本名>",并更新底部的统计表。
 
-Latest refresh: **2026-09-06** -- reconciled the tracker with the live PR queue: **84** more tracked PRs are now resolved (**10 merged**: #13862, #13903, #14038, #14260, #14291, #14307, #14346, #14562, #14663, #15182; **74 closed**). Approximately **669** pull requests remain open.
+快照时间:**2026-09-02**——共 **918** 个 open pull request。
 
-Notation: `<index>. [ ] #<pr_id> <labels>`
+最近刷新:**2026-09-06**——已将追踪表与实际 PR 队列核对:又有 **84** 个被追踪的 PR 得到处理(**10 个合并**:#13862、#13903、#14038、#14260、#14291、#14307、#14346、#14562、#14663、#15182;**74 个关闭**)。目前大约还有 **669** 个 pull request 处于 open 状态。
+
+标记格式:`<序号>. [ ] #<pr编号> <标签>`
 
 ## Open pull requests
 
@@ -2024,37 +2026,39 @@ Same notation as the PR tracker: `<index>. [ ] #<id> <labels>`, checked off (`[x
 143. [ ] #6252 no labels
 144. [ ] #6216 help wanted
 
-### Triage recommendations
+### 问题分诊建议
 
-A first pass at *which open issues we can close*, ordered by confidence. Grouped so a maintainer can act on a whole bucket at once. I verified each claim against the current `master` tree before listing it; where a claim depends on something I can't see (e.g. a rebuilt container), it's marked **verify**.
+对*哪些 open issue 可以关闭*的初步梳理,按把握程度排序。分组呈现,便于维护者对整组问题一次性处理。我在列出每条结论之前,都对照当前 `master` 代码树做了核实;凡结论依赖我看不到的信息(例如重新构建的容器),均标注**待验证**。
 
-**A. Close now — not a real issue / spam**
+**A. 立即关闭——并非真实问题 / 垃圾信息**
 
-- **#15002 "Sin gravedad"** — spam. Body is an advertising link to an adult cam site, reports "Python 5.0", and attaches a video. No algorithmic content. Close and, if possible, report the author.
+- **#15002 "Sin gravedad"** —— 垃圾信息。正文是成人直播网站的广告链接,报告"Python 5.0",还附了一段视频。没有任何算法内容。直接关闭,并尽可能举报作者。
 
-**B. Close now — obsolete (target no longer in the tree)**
+**B. 立即关闭——已过时(目标对象已不在代码树中)**
 
-- **#13226 "Inconsistent behavior for missing values in `coordinate_compression.py`"** — the file `data_structures/coordinate_compression.py` no longer exists on `master`; the module the bug is about has been removed. Nothing left to fix.
+- **#13226 "`coordinate_compression.py` 中缺失值行为不一致"** —— 文件 `data_structures/coordinate_compression.py` 在 `master` 上已不存在,该 bug 所指的模块已被移除。已无可修复的内容。
 
-**C. Close as fixed/duplicate once the linked PR merges**
+**C. 待关联 PR 合并后,以"已修复/重复"关闭**
 
-- **#15085 "[BUG] `jump_search` raises `IndexError` for empty list input"** — still reproduces on `master`, but a fix is already in the review queue: **#14807** (canonical `jump_search([]) -> -1` guard + doctest, which I've approved) with **#15101** as a duplicate of it. Close #15085 as fixed the moment #14807 merges; no separate fix PR is needed.
+- **#15085 "[BUG] `jump_search` 对空列表输入抛出 `IndexError`"** —— 在 `master` 上仍可复现,但修复已进入评审队列:**#14807**(规范的 `jump_search([]) -> -1` 防护 + doctest,我已批准),**#15101** 是它的重复项。#14807 一合并即可将 #15085 以已修复关闭;无需单独的修复 PR。
 
-**D. Stale feature requests with no implementation ("please add algorithm X", ≥1 year, no PR)**
+**D. 只停留在愿望层面、从未产生实现的陈旧功能请求("请添加算法 X",≥1 年,无 PR)**
 
-These are standing "it would be nice to have …" requests that never produced a PR. They're not bugs and nothing in the tree depends on them; leaving them open makes the issue list look busier than the actual work. Recommend closing with a friendly "we'd still welcome a PR for this — closing to keep the tracker actionable; comment and we'll reopen" note. Candidates (all `enhancement`, 600–1500 days old, zero linked PR):
+这些是长期挂着"要是能……就好了"式请求,从未催生出任何 PR。它们不是 bug,代码树中也没有任何东西依赖它们;继续挂着会让 issue 列表看起来比实际工作量更繁忙。建议附带一条友好的说明关闭:"我们仍然欢迎相关 PR——为保持追踪表可操作而关闭;留言即可重新打开。"候选条目(均为 `enhancement`,600–1500 天,零关联 PR):
 
-- #8067 XGBoost classification/regression · #8083 caching algorithms · #11517 sliding window · #11578 genetic algorithm for function optimization · #11837 LZ78 compression · #11844 transposition cipher · #11938 travelling salesman · #11947 wildcard matching with FFT · #11972 Grover's search (Qiskit) · #12043 Edmonds' Blossom · #12064 elliptic-curve crypto · #12069 LSTM · #12107 hollow-diamond pattern · #12108 ridge regression · #12124 adaptive/"stalin" merge sort · #12128 TSP in graphs · #12218 set-matrix-zero · #12318 Shor's algorithm · #12321 ART1 net · #12322 RBFNN · #12496 "addition of AI algorithms" · #12569 collision detection · #12622 PID/ADRC · #12939 transitive closure
+- #8067 XGBoost 分类/回归 · #8083 缓存算法 · #11517 滑动窗口 · #11578 用于函数优化的遗传算法 · #11837 LZ78 压缩 · #11844 换位密码 · #11938 旅行商问题 · #11947 基于 FFT 的通配符匹配 · #11972 Grover 搜索(Qiskit) · #12043 Edmonds Blossom(一般图最大匹配) · #12064 椭圆曲线密码 · #12069 LSTM · #12107 空心菱形图案 · #12108 岭回归 · #12124 自适应/"stalin"归并排序 · #12128 图上的 TSP · #12218 set-matrix-zero · #12318 Shor 算法 · #12321 ART1 网络 · #12322 RBFNN · #12496 "添加 AI 算法" · #12569 碰撞检测 · #12622 PID/ADRC · #12939 传递闭包
 
-**E. Likely already resolved — verify then close**
+**E. 大概率已解决——先验证再关闭**
 
-- **#10941 "Container build failed in codespaces"** and **#11812 "DevContainer setup fails"** — a working `.devcontainer/` (Dockerfile + `devcontainer.json` + `post_install`) is present and current on `master`; both reports predate it. **Verify** a fresh Codespace build is green, then close.
-- **#11841 "computer_vision README.md link not working"** and **#11225 "Misformatted/linked wiki entry in python sorting"** — small doc-link reports; **verify** the referenced link resolves today and close if fixed.
+- **#10941 "Container build failed in codespaces"** 与 **#11812 "DevContainer setup fails"** —— `master` 上已存在一套可用且最新的 `.devcontainer/`(Dockerfile + `devcontainer.json` + `post_install`);两份报告都早于它。**验证**新建 Codespace 构建通过后关闭。
+- **#11841 "computer_vision README.md link not working"** 与 **#11225 "Misformatted/linked wiki entry in python sorting"** —— 小型文档链接问题报告;**验证**相关链接现在可以访问后关闭。
 
-**F. Keep open — real, reproducible, and good contributor material**
+**F. 保持 open——真实、可复现、适合贡献者入手**
 
-Confirmed still-live on `master` and each is a tidy, well-scoped fix (good `good first issue` candidates), so these should stay open:
+确认在 `master` 上仍然存在,且每个都是干净、范围明确的修复(不错的 `good first issue` 候选),因此应保持 open:
 
-- #14950 `radix_sort` doesn't raise on negative input (verified: silently mis-sorts) · #14898 `cyclic_sort` infinite loop on invalid input · #14649 `split` wrong result for multi-character separators · #15071 Kahn's topo-sort `pop(0)`/sparse-id bug · #15075 `matrix_exponentiation` self-referential annotation `NameError` · #14584 `run_simplex()` returns `{}` instead of raising · #12192 topological sort returns reversed list · #12233 avoid `log(0)` in KL divergence.
+- #14950 `radix_sort` 对负数输入不抛异常(已验证:会静默排错) · #14898 `cyclic_sort` 对非法输入死循环 · #14649 `split` 对多字符分隔符结果错误 · #15071 Kahn 拓扑排序 `pop(0)`/稀疏 id bug · #15075 `matrix_exponentiation` 自引用注解导致 `NameError` · #14584 `run_simplex()` 返回 `{}` 而不是抛异常 · #12192 拓扑排序返回逆序列表 · #12233 KL 散度中避免 `log(0)`。
 
-I can take a second pass through the remaining `awaiting triage` items (relabel or route) once the buckets above are actioned — just say the word.
+等上面各组处理完毕后,我可以对剩余的 `awaiting triage` 条目做第二轮梳理(重新打标签或路由)——说一声就行。
+
+> 注:因篇幅所限,本文档翻译了核心章节,完整内容见原项目。

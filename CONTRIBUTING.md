@@ -1,119 +1,123 @@
-# Contributing guidelines
+> 🌐 本文档由 [TheAlgorithms/Python](https://github.com/TheAlgorithms/Python) 翻译,英文原版见原项目。
 
-## Before contributing
+# 贡献指南
 
-Welcome to [TheAlgorithms/Python](https://github.com/TheAlgorithms/Python)! Before submitting your pull requests, please ensure that you __read the whole guidelines__. If you have any doubts about the contributing guide, please feel free to [state it clearly in an issue](https://github.com/TheAlgorithms/Python/issues/new) or ask the community on [Gitter](https://gitter.im/TheAlgorithms/community).
+## 贡献之前
 
-## Contributing
+欢迎来到 [TheAlgorithms/Python](https://github.com/TheAlgorithms/Python)!在提交 pull request 之前,请务必**通读全部指南**。如果你对本贡献指南有任何疑问,欢迎[在 issue 中清楚地提出](https://github.com/TheAlgorithms/Python/issues/new),或在 [Gitter](https://gitter.im/TheAlgorithms/community) 社区提问。
 
-### Contributor
+## 如何贡献
 
-We are delighted that you are considering implementing algorithms and data structures for others! This repository is referenced and used by learners from all over the globe. By being one of our contributors, you agree and confirm that:
+### 贡献者
 
-- You did your work - no plagiarism allowed.
-  - Any plagiarized work will not be merged.
-- Your work will be distributed under [MIT License](LICENSE.md) once your pull request is merged.
-- Your submitted work fulfills or mostly fulfills our styles and standards.
+非常高兴你愿意为他人实现算法和数据结构!本仓库被世界各地的学习者参考和使用。成为贡献者即表示你同意并确认:
 
-__New implementation__ is welcome! For example, new solutions for a problem, different representations for a graph data structure or algorithm designs with different complexity, but __identical implementation__ of an existing implementation is not allowed. Please check whether the solution is already implemented or not before submitting your pull request.
+- 作品出自你之手——不允许抄袭。
+  - 任何抄袭的作品都不会被合并。
+- 你的 pull request 被合并后,作品将基于 [MIT 许可证](LICENSE.md)分发。
+- 你提交的作品完全或基本符合我们的风格与标准。
 
-__Improving comments__ and __writing proper tests__ are also highly welcome.
+**欢迎新的实现!** 例如:针对同一问题的新解法、图数据结构的不同表示方式、复杂度各异的算法设计等;但**不允许与已有实现完全相同的实现**。提交 pull request 之前,请先检查该解法是否已被实现过。
 
-### Contribution
+**改进注释**和**编写完善的测试**同样非常受欢迎。
 
-We appreciate any contribution, from fixing a grammar mistake in a comment to implementing complex algorithms. Please read this section if you are contributing your work.
+### 贡献内容
 
-Your contribution will be tested by our [automated testing on GitHub Actions](https://github.com/TheAlgorithms/Python/actions) to save time and mental energy.  After you have submitted your pull request, you should see the GitHub Actions tests start to run at the bottom of your submission page. If those tests fail, then click on the ___details___ button to read through the GitHub Actions output to understand the failure.  If you do not understand, please leave a comment on your submission page, and a community member will try to help.
+我们感谢任何形式的贡献——从修正注释里的一个语法错误,到实现复杂的算法。如果你要贡献自己的作品,请阅读本节。
+
+你的贡献将由我们的 [GitHub Actions 自动化测试](https://github.com/TheAlgorithms/Python/actions)验证,以节省大家的时间和精力。提交 pull request 之后,你会在提交页面底部看到 GitHub Actions 测试开始运行。如果测试失败,请点击 ___details___ 按钮查看 GitHub Actions 的输出以了解失败原因。如果仍不理解,可以在你的提交页面留言,社区成员会尽力提供帮助。
 
 #### Issues
 
-If you are interested in resolving an [open issue](https://github.com/TheAlgorithms/Python/issues), simply make a pull request with your proposed fix. __We do not assign issues in this repo__ so please do not ask for permission to work on an issue.
+如果你有兴趣解决某个 [open issue](https://github.com/TheAlgorithms/Python/issues),直接提交带有修复方案的 pull request 即可。**本仓库不指派 issue**,因此请不要申请某个 issue 的"操作许可"。
 
-__Do not__ create an issue to contribute an algorithm. Please submit a pull request instead.
+**不要**为了贡献算法而创建 issue,请直接提交 pull request。
 
-Please help us keep our issue list small by adding `Fixes #{$ISSUE_NUMBER}` to the description of pull requests that resolve open issues.
-For example, if your pull request fixes issue #10, then please add the following to its description:
+请在解决 open issue 的 pull request 描述中加上 `Fixes #{$ISSUE_NUMBER}`,帮助我们保持 issue 列表精简。例如,如果你的 pull request 修复了 issue #10,请在描述中加入:
+
 ```
 Fixes #10
 ```
-GitHub will use this tag to [auto-close the issue](https://docs.github.com/en/issues/tracking-your-work-with-issues/linking-a-pull-request-to-an-issue) if and when the PR is merged.
 
-#### What is an Algorithm?
+当 PR 被合并时,GitHub 会根据这个标记[自动关闭对应 issue](https://docs.github.com/en/issues/tracking-your-work-with-issues/linking-a-pull-request-to-an-issue)。
 
-An Algorithm is one or more functions (or classes) that:
-* take one or more inputs,
-* perform some internal calculations or data manipulations,
-* return one or more outputs,
-* have minimal side effects (Ex. `print()`, `plot()`, `read()`, `write()`).
+#### 什么是算法?
 
-Algorithms should be packaged in a way that makes it easy for readers to put them into larger programs.
+算法是一个或多个函数(或类),它应当:
+* 接受一个或多个输入,
+* 执行一些内部计算或数据操作,
+* 返回一个或多个输出,
+* 尽量减少副作用(例如 `print()`、`plot()`、`read()`、`write()`)。
 
-Algorithms should:
-* have intuitive class and function names that make their purpose clear to readers
-* use Python naming conventions and intuitive variable names to ease comprehension
-* be flexible to take different input values
-* have Python type hints for their input parameters and return values
-* raise Python exceptions (`ValueError`, etc.) on erroneous input values
-* have docstrings with clear explanations and/or URLs to source materials
-* contain doctests that test both valid and erroneous input values
-* return all calculation results instead of printing or plotting them
+算法的封装方式应便于读者把它放进更大的程序中。
 
-Algorithms in this repo should not be how-to examples for existing Python packages. Instead, they should perform internal calculations or manipulations to convert input values into different output values. Those calculations or manipulations can use data types, classes, or functions of existing Python packages, but each algorithm in this repo should add unique value.
+算法应当:
+* 使用直观的类名和函数名,让读者一眼明了其用途
+* 遵循 Python 命名规范并使用直观的变量名,便于理解
+* 能够灵活接受不同的输入值
+* 为输入参数和返回值提供 Python 类型注解
+* 对错误的输入值抛出 Python 异常(`ValueError` 等)
+* 带有解释清晰的 docstring,并/或附上原始资料的 URL
+* 包含同时覆盖合法输入与非法输入的 doctest
+* 返回全部计算结果,而不是打印或绘图输出
 
-#### Pre-commit plugin
-Use [pre-commit](https://pre-commit.com/#installation) to automatically format your code to match our coding style:
+本仓库中的算法不应当是"如何使用现有 Python 包"的示例教程,而应当通过内部计算或数据变换,把输入值转换为不同的输出值。计算过程可以使用现有 Python 包的数据类型、类或函数,但本仓库中的每个算法都应带来独特的价值。
+
+#### Pre-commit 插件
+使用 [pre-commit](https://pre-commit.com/#installation) 自动把代码格式化成我们的编码风格:
 
 ```bash
-python3 -m pip install pre-commit  # only required the first time
+python3 -m pip install pre-commit  # 仅首次安装时需要
 pre-commit install
 ```
-That's it! The plugin will run every time you commit any changes. If any errors are found during the run, fix them and commit those changes. You can even run the plugin manually on all files:
+
+搞定!之后每次提交变更时该插件都会自动运行。如果运行中发现错误,修复后重新提交即可。你甚至可以在所有文件上手动运行该插件:
 
 ```bash
 pre-commit run --all-files --show-diff-on-failure
 ```
 
-#### Coding Style
+#### 编码风格
 
-We want your work to be readable by others; therefore, we encourage you to note the following:
+我们希望你的作品能被他人顺利阅读,因此请注意以下几点:
 
-- Please write in free-threaded Python 3.14t+. For instance: `print()` is a function in Python 3, so `print "Hello"` will *not* work, but `print("Hello")` will.
-- Please focus hard on the naming of functions, classes, and variables.  Help your reader by using __descriptive names__ that can help you to remove redundant comments.
-  - Single-letter variable names are *old school*, so please avoid them unless their life only spans a few lines.
-  - Expand acronyms because `gcd()` is hard to understand but `greatest_common_divisor()` is not.
-  - Please follow the [Python Naming Conventions](https://pep8.org/#prescriptive-naming-conventions) so variable_names and function_names should be lower_case, CONSTANTS in UPPERCASE, ClassNames should be CamelCase, etc.
+- 请使用现代化的 Python 3 编写代码。例如:`print()` 在 Python 3 中是函数,所以 `print "Hello"` *无法*运行,而 `print("Hello")` 可以。
+- 请在函数、类和变量的命名上下足功夫。使用**描述性名称**能帮读者省去冗余注释。
+  - 单字母变量名是*老派做法*,除非其生命周期只有寥寥几行,否则请避免。
+  - 展开缩写,因为 `gcd()` 难以理解,而 `greatest_common_divisor()` 一目了然。
+  - 请遵循 [Python 命名规范](https://pep8.org/#prescriptive-naming-conventions):变量名与函数名用 lower_case,常量用 UPPERCASE,类名用 CamelCase,等等。
 
-- We encourage the use of Python [f-strings](https://realpython.com/python-f-strings/#f-strings-a-new-and-improved-way-to-format-strings-in-python) where they make the code easier to read.
+- 鼓励在能让代码更易读的地方使用 Python [f-string](https://realpython.com/python-f-strings/#f-strings-a-new-and-improved-way-to-format-strings-in-python)。
 
-- Please consider running [__ruff format__](https://docs.astral.sh/ruff/formatter/) on your Python file(s) before submitting your pull request.  This is not yet a requirement, but it does make your code more readable and automatically aligns it with much of [PEP 8](https://peps.python.org/pep-0008/). To use it,
+- 提交 pull request 之前,请考虑对 Python 文件运行 [__ruff format__](https://docs.astral.sh/ruff/formatter/)。这还不是硬性要求,但它能让代码更易读,并自动满足 [PEP 8](https://peps.python.org/pep-0008/) 的许多要求。用法:
 
   ```bash
-  python3 -m pip install ruff  # only required the first time
+  python3 -m pip install ruff  # 仅首次安装时需要
   ruff format
   ```
 
-- All submissions will need to pass the test `ruff check` before they will be accepted, so if possible, try this test locally on your Python file(s) before submitting your pull request.
+- 所有提交必须先通过 `ruff check` 测试才会被接受,因此请尽量在提交 pull request 前在本地对 Python 文件运行该检查。
 
   ```bash
-  python3 -m pip install ruff  # only required the first time
+  python3 -m pip install ruff  # 仅首次安装时需要
   ruff check
   ```
 
-- Original code submissions require docstrings or comments to describe your work.
+- 原创代码提交需要带有描述作品的 docstring 或注释。
 
-- More on docstrings and comments:
+- 关于 docstring 与注释的更多说明:
 
-  If you used a Wikipedia article or other source material to create your algorithm, please add the URL in a docstring or comment to help your reader.
+  如果你编写算法时参考了 Wikipedia 条目或其他资料,请在 docstring 或注释中附上该 URL,方便读者查阅。
 
-  The following are considered to be bad and may be requested to be improved:
+  以下写法被视为坏例子,可能会被要求改进:
 
   ```python
   x = x + 2  # increased by 2
   ```
 
-  This is too trivial. Comments are expected to be explanatory. For comments, you can write them above, on, or below a line of code, as long as you are consistent within the same piece of code.
+  这种注释过于浅显。注释应当起解释作用。注释可以写在代码行的上方、行内或下方,只要在同一片代码中保持一致即可。
 
-  We encourage you to put docstrings inside your functions, but please pay attention to the indentation of docstrings. The following is a good example:
+  我们鼓励在函数内编写 docstring,但请注意 docstring 的缩进。以下是一个好的示例:
 
   ```python
   def sum_ab(a, b):
@@ -123,7 +127,7 @@ We want your work to be readable by others; therefore, we encourage you to note 
       return a + b
   ```
 
-- Write tests (especially [__doctests__](https://docs.python.org/3/library/doctest.html)) to illustrate and verify your work.  We highly encourage the use of _doctests on all functions_.
+- 编写测试(尤其是 [__doctest__](https://docs.python.org/3/library/doctest.html))来说明并验证你的作品。我们强烈鼓励**为所有函数编写 doctest**。
 
   ```python
   def sum_ab(a, b):
@@ -139,13 +143,13 @@ We want your work to be readable by others; therefore, we encourage you to note 
       return a + b
   ```
 
-  These doctests will be run by pytest as part of our automated testing, so please try to run your doctests locally and make sure that they are found and pass:
+  这些 doctest 会由 pytest 作为自动化测试的一部分运行,因此请在本地运行你的 doctest,确保它们能被发现并通过:
 
   ```bash
   python3 -m doctest -v my_submission.py
   ```
 
-  The use of the Python built-in `input()` function is __not__ encouraged:
+  不鼓励使用 Python 内置的 `input()` 函数:
 
   ```python
   input("Enter your input:")
@@ -153,16 +157,16 @@ We want your work to be readable by others; therefore, we encourage you to note 
   input = eval(input("Enter your input: "))
   ```
 
-  However, if your code uses `input()` then we encourage you to gracefully deal with leading and trailing whitespace in user input by adding `.strip()` as in:
+  不过,如果你的代码确实使用了 `input()`,我们建议你通过添加 `.strip()` 妥善处理用户输入首尾的空白字符:
 
   ```python
   starting_value = int(input("Please enter a starting value: ").strip())
   ```
 
-  The use of [Python type hints](https://docs.python.org/3/library/typing.html) is encouraged for function parameters and return values.  Our CI runs [ty](https://docs.astral.sh/ty/) as an informational check that does not block merges yet, so you may want to run it locally before making your submission.
+  鼓励为函数参数和返回值使用 [Python 类型注解](https://docs.python.org/3/library/typing.html)。我们的 CI 会运行 [ty](https://docs.astral.sh/ty/) 作为信息性检查(暂不阻塞合并),因此建议你在提交前先在本地运行一次。
 
   ```bash
-  python3 -m pip install ty  # only required the first time
+  python3 -m pip install ty  # 仅首次安装时需要
   ty check my_file_path.py
   ```
 
@@ -171,28 +175,28 @@ We want your work to be readable by others; therefore, we encourage you to note 
       return a + b
   ```
 
-  Instructions on how to install ty can be found [here](https://docs.astral.sh/ty/installation/). Please use the command `ty check` to test all files or `ty check path/to/file.py` to test a specific file.
+  ty 的安装说明见[这里](https://docs.astral.sh/ty/installation/)。请使用命令 `ty check` 检查所有文件,或用 `ty check path/to/file.py` 检查特定文件。
 
-- [__List comprehensions and generators__](https://docs.python.org/3/tutorial/datastructures.html#list-comprehensions) are preferred over the use of `lambda`, `map`, `filter`, `reduce` but the important thing is to demonstrate the power of Python in code that is easy to read and maintain.
+- [__列表推导式与生成器__](https://docs.python.org/3/tutorial/datastructures.html#list-comprehensions)优先于 `lambda`、`map`、`filter`、`reduce`,但最重要的是用易读、易维护的代码展示 Python 的威力。
 
-- Avoid importing external libraries for basic algorithms. Only use those libraries for complicated algorithms.
-- If you need a third-party module that is not already listed in __pyproject.toml__, please add it to the `dependencies` there as part of your submission. The `uv-lock` pre-commit hook will update `uv.lock` to match.
+- 基础算法应避免导入外部库;只有复杂算法才使用外部库。
+- 如果你需要的第三方模块尚未列在 `pyproject.toml` 中,请在提交时把它加入其中的 `dependencies`,`uv-lock` pre-commit 钩子会自动更新 `uv.lock` 使之匹配。
 
-#### Other Requirements for Submissions
-- If you are submitting code in the `project_euler/` directory, please also read [the dedicated Guideline](https://github.com/TheAlgorithms/Python/blob/master/project_euler/README.md) before contributing to our Project Euler library.
-- The file extension for code files should be `.py`. Jupyter Notebooks should be submitted to [TheAlgorithms/Jupyter](https://github.com/TheAlgorithms/Jupyter).
-- Strictly use snake_case (underscore_separated) in your file_name, as it will be easy to parse in the future using scripts.
-- Please avoid creating new directories if at all possible. Try to fit your work into the existing directory structure.
-- If possible, follow the standard *within* the folder you are submitting to.
-- If you have modified/added code, make sure the code compiles before submitting.
-- If you have modified/added documentation work, ensure your language is concise and contains no grammar errors.
-- Do not update the README.md or DIRECTORY.md file, which will be periodically autogenerated by our GitHub Actions processes.
-- Add a corresponding explanation to [Algorithms-Explanation](https://github.com/TheAlgorithms/Algorithms-Explanation) (Optional but recommended).
-- Our CI runs [__ty__](https://docs.astral.sh/ty/) on every pull request as an informational check that does not block merges yet, so we encourage you to add [__Python type hints__](https://docs.python.org/3/library/typing.html) where `ty` recommends to do so.
+#### 其他提交要求
+- 如果你要向 `project_euler/` 目录提交代码,请先阅读[专用指南](https://github.com/TheAlgorithms/Python/blob/master/project_euler/README.md),再为我们的 Project Euler 题库做贡献。
+- 代码文件的扩展名应为 `.py`。Jupyter Notebook 请提交到 [TheAlgorithms/Jupyter](https://github.com/TheAlgorithms/Jupyter)。
+- 文件名请严格使用 snake_case(下划线分隔),便于日后用脚本解析。
+- 请尽量避免创建新目录,尽量把作品融入现有的目录结构。
+- 如果可能,请遵循你所提交目录内部的标准。
+- 如果修改/新增了代码,提交前请确保代码可以编译。
+- 如果修改/新增了文档,请确保语言简洁、没有语法错误。
+- 不要更新 README.md 或 DIRECTORY.md,它们会由我们的 GitHub Actions 流程定期自动生成。
+- 建议在 [Algorithms-Explanation](https://github.com/TheAlgorithms/Algorithms-Explanation) 中添加对应的算法讲解(可选,但推荐)。
+- 我们的 CI 会在每个 pull request 上运行 [__ty__](https://docs.astral.sh/ty/) 作为信息性检查(暂不阻塞合并),因此鼓励你在 `ty` 建议之处添加 [__Python 类型注解__](https://docs.python.org/3/library/typing.html)。
 
-- Most importantly,
-  - __Be consistent in the use of these guidelines when submitting.__
-  - __Join__ us on [Discord](https://discord.com/invite/c7MnfGFGa6) and [Gitter](https://gitter.im/TheAlgorithms/community) __now!__
-  - Happy coding!
+- 最重要的是:
+  - __提交时请始终如一地遵循这些指南。__
+  - 现在就来__加入__我们的 [Discord](https://discord.com/invite/c7MnfGFGa6) 和 [Gitter](https://gitter.im/TheAlgorithms/community)!
+  - 祝编码愉快!
 
-Writer [@poyea](https://github.com/poyea), Jun 2019.
+作者 [@poyea](https://github.com/poyea),2019 年 6 月。
